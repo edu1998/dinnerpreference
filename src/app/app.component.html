@@ -1,0 +1,95 @@
+<mat-toolbar color="primary">
+  <mat-icon>fastfood</mat-icon>
+  <span class="margin-title">Dinner Preference</span>
+</mat-toolbar>
+<br><br>
+<div fxLayout="row">
+  <div fxFlex="50" class="content">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>Enter your information</mat-card-title>
+      </mat-card-header>
+      <form #info="ngForm" (ngSubmit)="info.valid && addGuest()">
+        <mat-card-content>
+          <!-- guest information entries -->
+          <div fxLayout="column" fxLayoutGap="0px">
+            <div fxFlex>
+              <mat-form-field appearance="outline">
+                <mat-label>Full name</mat-label>
+                <input matInput type="text" [(ngModel)]="guest.name" name="name" placeholder="Eduardo Tordecilla Paez"
+                  autocomplete="off" required>
+              </mat-form-field>
+            </div>
+            <div fxFlex>
+              <mat-form-field appearance="outline">
+                <mat-label>Favorite food</mat-label>
+                <input matInput type="text" [(ngModel)]="guest.food" name="food" placeholder="Subway" autocomplete="off"
+                  required>
+              </mat-form-field>
+            </div>
+            <div fxFlex fxFlexAlign="center">
+              <mat-label>Position on the table</mat-label>
+              <br>
+              <br>
+              <!-- creating the table and its positions -->
+              <mat-icon (click)="selectBoard = 1" [ngClass]="{'position-selected': selectBoard === 1}" class="icon-s">
+                airline_seat_recline_normal </mat-icon>
+              <mat-icon (click)="selectBoard = 2" [ngClass]="{'position-selected': selectBoard === 2}"
+                class="icon-s mat-icon-right">airline_seat_recline_normal </mat-icon>
+              <div class="board">
+                <mat-icon class="icon-s">fiber_manual_record </mat-icon>
+              </div>
+              <mat-icon (click)="selectBoard = 3" [ngClass]="{'position-selected': selectBoard === 3}" class="icon-s"
+                style="position: relative;margin-top: 10px">
+                airline_seat_recline_normal
+              </mat-icon>
+              <mat-icon (click)="selectBoard = 4" [ngClass]="{'position-selected': selectBoard === 4}"
+                class="icon-s mat-icon-right" style="position: relative;margin-top: 10px">
+                airline_seat_recline_normal
+              </mat-icon>
+            </div>
+          </div>
+        </mat-card-content>
+        <mat-card-actions align="center">
+          <button mat-raised-button color="primary" type="submit">Send</button>
+        </mat-card-actions>
+      </form>
+    </mat-card>
+  </div>
+  <div fxFlex="50">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>Guest List</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+
+        <table mat-table #listGuestTablet [dataSource]="listGuest">
+
+          <ng-container matColumnDef="position">
+            <th mat-header-cell *matHeaderCellDef> No. </th>
+            <td mat-cell *matCellDef="let element; let i = index"> {{i +1}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef> Name </th>
+            <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="food">
+            <th mat-header-cell *matHeaderCellDef> Favorite food </th>
+            <td mat-cell *matCellDef="let element"> {{element.food}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="positiont">
+            <th mat-header-cell *matHeaderCellDef> Position </th>
+            <td mat-cell *matCellDef="let element"> {{element.positiont}} </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="guestColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: guestColumns;"></tr>
+        </table>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+<!-- <router-outlet></router-outlet> -->
